@@ -4,10 +4,8 @@
     box-sizing: border-box;
 }
 
-.actors_list{
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-column-gap: 25px;
+a{
+    text-decoration: inherit;
 }
 .actors_list_img{
     width: 100%;
@@ -92,4 +90,21 @@
     50% {
         transform: translate(150%,-150%) scale(2,2);
     }
+}
+.actors_null_img{
+
+    height: 150px
+}
+
+.actors_name{
+    text-decoration: none;
+    color: black;
+    font-size: 13px;
+
+}
+.actors_card{
+    border: 1px solid gray;
+    border-radius: 10px 10px;
+    padding: 5px;
+height: 200px;
 }
