@@ -1,32 +1,31 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams, Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/Spinner";
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
+import {getInfoActor} from "../../redux/actions/actorActions";
 
 const AboutPerson = () => {
-  const [actor, setActor] = useState({})
   const [films, setFilms] = useState([])
-  const params = useParams()
+  const dispatch = useDispatch()
+  const {actor} = useSelector(s => s.actor)
+  const {id} = useParams()
   const [isLoading, setIsLoading] = useState(true)
   const [isFilmsLoading, setFilmsLoading] = useState(true)
 
   useEffect(() => {
-    axios(`https://api.themoviedb.org/3/person/${params.id}?&api_key=9a193411abe2edd82171cfeaf1d75c8c`)
-      .then(({data}) => {
-        setActor(data)
-        setIsLoading(false)
-      })
-  }, [params.id])
+    dispatch(getInfoActor(id))
+  }, [id])
   useEffect(() => {
-    axios(`https://api.themoviedb.org/3/person/${params.id}/movie_credits?&api_key=9a193411abe2edd82171cfeaf1d75c8c`)
+    axios(`https://api.themoviedb.org/3/person/${id}/movie_credits?&api_key=9a193411abe2edd82171cfeaf1d75c8c`)
       .then(({data}) => {
         setFilms(data.cast)
         setFilmsLoading(false)
       })
-  }, [params.id])
+  }, [id])
   if (isLoading && isFilmsLoading) {
     return <div className='d-flex justify-content-center'>
       <Spinner/>
