@@ -1,6 +1,7 @@
 const initialState = {
   actor:{},
-  isLoading: true
+  isLoading: true,
+  new: false
 }
 
 
@@ -9,7 +10,7 @@ export const actorReducer = (state = initialState, action) => {
     case "ACTOR_REQUEST":
       return {...state, isLoading: true}
     case "ACTOR_SUCCESS":
-      return {...state, actor: action.payload, isLoading: false}
+      return {...state, actor: action.payload, isLoading: false, new: true}
     case "ACTOR_FAILED":
       return {...state, isLoading: false, error: action.payload}
     default:

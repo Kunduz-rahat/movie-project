@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from "react";
-import axios from "axios";
+import React, {useEffect} from "react";
 import {useParams, Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/Spinner";
@@ -7,29 +6,21 @@ import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import {getInfoActor} from "../../redux/actions/actorActions";
+import {getActorFilms} from "../../redux/actions/actorFilmsActions";
 
 const AboutPerson = () => {
-  const [films, setFilms] = useState([])
   const dispatch = useDispatch()
-  const {actor} = useSelector(s => s.actor)
+  const {actor, isLoading} = useSelector(s => s.actor)
+  const {films, isLoadingFilms} = useSelector(s => s.films)
   const {id} = useParams()
-  const [isLoading, setIsLoading] = useState(true)
-  const [isFilmsLoading, setFilmsLoading] = useState(true)
 
-  useEffect(() => {
-    dispatch(getInfoActor(id))
-  }, [id])
-  useEffect(() => {
-    axios(`https://api.themoviedb.org/3/person/${id}/movie_credits?&api_key=9a193411abe2edd82171cfeaf1d75c8c`)
-      .then(({data}) => {
-        setFilms(data.cast)
-        setFilmsLoading(false)
-      })
-  }, [id])
-  if (isLoading && isFilmsLoading) {
+  useEffect(() => dispatch(getInfoActor(id)), [id])
+  useEffect(() => dispatch(getActorFilms(id)), [id])
+
+  if (isLoading && isLoadingFilms) {
     return <div className='d-flex justify-content-center'>
-      <Spinner/>
-    </div>
+             <Spinner/>
+           </div>
   }
 
   return (
@@ -50,12 +41,12 @@ const AboutPerson = () => {
                   <img src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`} alt=""/>
                   <p>{movie.title}</p>
                 </Link>
+
               </div>
             )
           }
         </OwlCarousel>
       </div>
-
     </div>
   )
 }
