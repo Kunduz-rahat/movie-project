@@ -14,8 +14,8 @@ const AboutPerson = () => {
   const {films, isLoadingFilms} = useSelector(s => s.films)
   const {id} = useParams()
 
-  useEffect(() => dispatch(getInfoActor(id)), [])
-  useEffect(() => dispatch(getActorFilms(id)), [])
+  useEffect(() => dispatch(getInfoActor(id)), [id])
+  useEffect(() => dispatch(getActorFilms(id)), [id])
 
   if (isLoading && isLoadingFilms) {
     return <div className='d-flex justify-content-center'>
