@@ -18,7 +18,9 @@ a{
     display: flex;
 }
 
-
+a{
+    text-decoration: none;
+}
 .swapping-squares-spinner, .swapping-squares-spinner * {
     box-sizing: border-box;
 }
@@ -107,4 +109,9 @@ a{
     border-radius: 10px 10px;
     padding: 5px;
 height: 200px;
+}
+.logo_title{
+    font-size: 40px;
+    text-decoration: none;
+    font-weight: 600;
 }

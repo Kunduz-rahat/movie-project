@@ -64,8 +64,8 @@ const MovieDetails = () => {
           <h4>Country:</h4>
           <div>{
             movie.production_countries?.map(item =>
-              <div>
-                <div key={item.id}>{item.name}</div>
+              <div key={item.id}>
+                <div >{item.name}</div>
 
               </div>)
           }</div>
